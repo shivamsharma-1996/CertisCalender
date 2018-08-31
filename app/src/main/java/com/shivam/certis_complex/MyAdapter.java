@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,8 +115,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         view.setLayoutParams(layoutParams);
                         layout.addView(view);
                         set.clone(layout);
-
-                        Log.i("rfv", String.valueOf(marginEnd[0] + " " + marginStart[0]));
 
                         if (endHour - 2 < COLUMN_COUNT)
                             if (marginEnd[0] > 0)
