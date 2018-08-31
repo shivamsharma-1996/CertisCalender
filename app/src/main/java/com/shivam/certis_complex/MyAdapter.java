@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
 
-        switch (CertiseItemType.lookupByCode(viewType))
-        {
+        switch (CertiseItemType.lookupByCode(viewType)) {
             case FIRST_ROW:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calender_row_layout, parent, false);
                 return new FirstRowViewHolder(view);
@@ -51,8 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
+    public int getItemViewType(int position) {
         if (position == 0)
             return 1;
         else
@@ -60,10 +58,8 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
-        switch (position)
-        {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        switch (position) {
             case 0:
                 FirstRowViewHolder firstRowViewHolder = (FirstRowViewHolder) holder;
                 firstRowViewHolder.mOfficerName.setVisibility(View.INVISIBLE);
@@ -76,43 +72,40 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 final int[] marginEnd = new int[1];
                 final SecondRowViewHolder secondRowViewHolder = (SecondRowViewHolder) holder;
 
-                final View boxView =  secondRowViewHolder.itemView.findViewById(boxIdMap.get(endHour));
+                final View boxView = secondRowViewHolder.itemView.findViewById(boxIdMap.get(endHour));
                 ViewTreeObserver vto = boxView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
-                    public void onGlobalLayout()
-                    {
+                    public void onGlobalLayout() {
                         boxView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                         boxWidth = boxView.getMeasuredWidth();
 
-                        switch (startMin)
-                        {
+                        switch (startMin) {
                             case 15:
-                                marginStart[0] = (boxWidth*1)/4;
+                                marginStart[0] = (boxWidth * 1) / 4;
                                 break;
                             case 30:
-                                marginStart[0] = (boxWidth*2)/4;
+                                marginStart[0] = (boxWidth * 2) / 4;
                                 break;
                             case 45:
-                                marginStart[0] = (boxWidth*3)/4;
+                                marginStart[0] = (boxWidth * 3) / 4;
                                 break;
-                            case 60:
-                                marginStart[0] = (boxWidth*4)/4;
+                            case 00:
+                                marginStart[0] = (boxWidth * 4) / 4;
                                 break;
                         }
-                        switch (endMin)
-                        {
+                        switch (endMin) {
                             case 15:
-                                marginEnd[0] = boxWidth- (boxWidth*1)/4;
+                                marginEnd[0] = boxWidth - (boxWidth * 1) / 4;
                                 break;
                             case 30:
-                                marginEnd[0] = boxWidth- (boxWidth*2)/4;
+                                marginEnd[0] = boxWidth - (boxWidth * 2) / 4;
                                 break;
                             case 45:
-                                marginEnd[0] = boxWidth- (boxWidth*3)/4;
+                                marginEnd[0] = boxWidth - (boxWidth * 3) / 4;
                                 break;
-                            case 60:
-                                marginEnd[0] = boxWidth- (boxWidth*4)/4;
+                            case 00:
+                                marginEnd[0] = boxWidth - (boxWidth * 4) / 4;
                                 break;
                         }
 
@@ -124,8 +117,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         layout.addView(view);
                         set.clone(layout);
 
-                        if ( endHour-2 < COLUMN_COUNT)
-                            set.connect(view.getId(), ConstraintSet.END, boxIdMap.get(endHour) , ConstraintSet.START, marginEnd[0]);
+                        Log.i("rfv", String.valueOf(marginEnd[0] + " " + marginStart[0]));
+
+                        if (endHour - 2 < COLUMN_COUNT)
+                            if (marginEnd[0] > 0)
+                                set.connect(view.getId(), ConstraintSet.END, boxIdMap.get(endHour + 1), ConstraintSet.START, marginEnd[0]);
+                            else
+                                set.connect(view.getId(), ConstraintSet.END, boxIdMap.get(endHour), ConstraintSet.START, marginEnd[0]);
                         else
                             set.connect(view.getId(), ConstraintSet.END, secondRowViewHolder.itemView.getId(), ConstraintSet.END, 0);
                         set.connect(view.getId(), ConstraintSet.START, boxIdMap.get(startHour), ConstraintSet.START, marginStart[0]);
@@ -159,8 +157,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static class SecondRowViewHolder extends RecyclerView.ViewHolder {
 
-        public SecondRowViewHolder(View itemView)
-        {
+        public SecondRowViewHolder(View itemView) {
             super(itemView);
         }
     }

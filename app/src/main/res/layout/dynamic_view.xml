@@ -12,7 +12,7 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="05:00 - 08:00 AM"
+        android:text="05:15 - 08:45 AM"
         android:textColor="#ee0077ee"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"

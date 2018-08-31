@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity
             R.id.v10,
             R.id.v11};
 
-    private String event = "5:30 - 8:30";
-
+    private String event = "4:15 - 8:45";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
