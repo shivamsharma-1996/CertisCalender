@@ -4,6 +4,7 @@
     android:id="@+id/constraint_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#FFFFFF">
 
     <include
@@ -14,9 +15,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/calenderView"
+        android:id="@+id/calender_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:layout_constraintTop_toBottomOf="@+id/first_row" />
 
 </android.support.constraint.ConstraintLayout>

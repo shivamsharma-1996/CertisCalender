@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
-{
+{//v f
     RecyclerView calenderView;
     private HashMap<Integer ,Integer> boxIdMap = new HashMap<>();
     private int[] calenderColumns = new int[]{
@@ -26,14 +26,14 @@ public class MainActivity extends AppCompatActivity
             R.id.v10,
             R.id.v11};
 
-    private String event = "4:15 - 8:45";
+    private String event = "5:15 - 8:45";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        calenderView = findViewById(R.id.calenderView);
+        setContentView(R.layout.activity_calender);
+        calenderView = findViewById(R.id.calender_view);
 
         int startHour = Integer.parseInt(event.substring( 0, event.indexOf(":")));
         int endHour = Integer.parseInt(event.substring(event.indexOf("-") + 2, event.lastIndexOf(":")));
@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         //for setting scale
-        for(int viewId = startHour-2 ; viewId< (startHour-2) + 11 ; viewId++)
+        for(int viewId = startHour-2 ; viewId < (startHour-2) + 11 ; viewId++)
         {
             ((TextView)findViewById(boxIdMap.get(viewId))).setText(viewId + "AM");
         }
-
         calenderView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
         calenderView.setAdapter(new MyAdapter(this, boxIdMap, startHour, endHour, startMin, endMin));
+
 
     }
 }
